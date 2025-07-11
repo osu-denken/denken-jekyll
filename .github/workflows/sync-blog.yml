@@ -1,0 +1,40 @@
+name: Sync denken-jekyll to blog
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout denken-jekyll repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+        with:
+          repository: osu-denken/blog
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: blog
+          fetch-depth: 0
+
+      - name: Copy denken-jekyll files to blog
+        run: |
+          cp -r _layouts blog/_layouts
+          cp -r _includes blog/_includes
+          cp -r assets blog/assets
+          cp _config.yml blog/_config.yml
+
+      - name: Commit and push changes
+        run: |
+          cd blog
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Sync denken-jekyll updates"
+          git push origin main
