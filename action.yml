@@ -6,7 +6,7 @@ branding:
   color: 'green'
 
 inputs:
-  ruby_version:
+  ruby_ver:
     description: 'Ruby version'
     required: false
     default: '3.4.4'
