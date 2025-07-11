@@ -26,13 +26,14 @@ runs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ inputs.ruby_version }}
+        ruby-version: ${{ inputs.ruby_ver }}
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
 
     - name: Install dependencies
       shell: bash
+      working-directory: ${{ github.action_path }}
       run: |
         gem install bundler
         bundle install
