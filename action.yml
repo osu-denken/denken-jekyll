@@ -1,0 +1,45 @@
+name: Build and Deploy Jekyll with GitHub Pages
+description: Jekyll for osu-denken
+author: osu-denken
+branding:
+  icon: 'play'
+  color: 'green'
+
+inputs:
+  ruby_version:
+    description: 'Ruby version'
+    required: false
+    default: '3.4.4'
+  ref:
+    description: 'The branch'
+    required: false
+    default: ${{ github.event.repository.default_branch }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.ref }}
+    
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby_version }}
+        
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Build with Jekyll
+      shell: bash
+      run: bundle exec jekyll build --destination ./_site
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
