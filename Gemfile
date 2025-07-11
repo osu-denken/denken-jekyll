@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'jekyll'
 gem 'jemoji'
 gem 'minima'
-gem 'jekyll-theme-chirpy'
 
 group :development do
   gem 'rubocop'
@@ -16,5 +15,4 @@ group :jekyll_plugins do
   gem 'jekyll-remote-theme'
   gem 'jekyll-seo-tag'
   gem 'jekyll-sitemap'
-  gem 'jekyll-polyglot'
 end
