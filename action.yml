@@ -38,6 +38,13 @@ runs:
         gem install bundler
         bundle install
 
+    - name: Override directories from denken-jekyll
+      shell: bash
+      run: |
+        cp -r ${{ github.action_path }}/_layouts ${{ github.workspace }}/_layouts
+        cp -r ${{ github.action_path }}/_includes ${{ github.workspace }}/_includes
+        cp -r ${{ github.action_path }}/assets ${{ github.workspace }}/assets
+
     - name: Build with Jekyll
       shell: bash
       working-directory: ${{ github.action_path }}
