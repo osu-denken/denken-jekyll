@@ -41,6 +41,10 @@ runs:
     - name: Build with Jekyll
       shell: bash
       working-directory: ${{ github.action_path }}
-      run: bundle exec jekyll build --source ${{ github.workspace }} --destination ${{ github.workspace }}/_site
+      run: |
+        bundle exec jekyll build \
+          --config ${{ github.action_path }}/_config.yml \
+          --source ${{ github.workspace }} \
+          --destination ${{ github.workspace }}/_site
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
