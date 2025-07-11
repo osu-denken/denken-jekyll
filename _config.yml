@@ -1,5 +1,6 @@
 title: 電研ブログ
 theme: minima
+baseurl: "/blog"
 markdown: CommonMark
 commonmark:
   options: ["UNSAFE", "SMART", "FOOTNOTES"]
