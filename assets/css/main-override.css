@@ -48,7 +48,6 @@ li.carditem a:hover {
   color: #666;
   margin: 10px 0;
   line-height: 1.6;
-  overflow: hidden;
   text-overflow: ellipsis;
   height: 60px;
   display: -webkit-box;
