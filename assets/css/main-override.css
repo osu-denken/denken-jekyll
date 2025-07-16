@@ -1,0 +1,58 @@
+ul.cardlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+li.carditem {
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+li.carditem:hover {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+/* タイトル */
+li.carditem a {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+li.carditem a:hover {
+  color: #0070f3;
+}
+
+/* 日付 */
+.card-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: auto;
+  text-align: right;
+}
+
+.card-excerpt {
+  font-size: 1rem;
+  color: #666;
+  margin: 10px 0;
+  line-height: 1.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 60px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
