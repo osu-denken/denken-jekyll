@@ -25,9 +25,9 @@ jobs:
 
       - name: Copy denken-jekyll files to blog
         run: |
-          cp -r _layouts blog/_layouts
-          cp -r _includes blog/_includes
-          cp -r assets blog/assets
+          cp -r _layouts/* blog/_layouts
+          cp -r _includes/* blog/_includes
+          cp -r assets/* blog/assets
           cp _config.yml blog/_config.yml
 
       - name: Commit and push changes
