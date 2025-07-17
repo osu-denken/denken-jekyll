@@ -43,6 +43,7 @@
   max-height: 30px;
   max-width: 30px;
   margin-right: 10px;
+  margin-top: -6px;
 }
 
 @media screen and (max-width: 640px) {
