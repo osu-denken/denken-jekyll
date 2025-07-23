@@ -1,0 +1,6 @@
+<div class="carditem">
+    <a href="{{ include.url }}">{{ include.title }}</a>
+    {% if include.description %}
+        <p class="card-excerpt">{{ include.description | truncate: 50 }}</p>
+    {% endif %}
+</div>
