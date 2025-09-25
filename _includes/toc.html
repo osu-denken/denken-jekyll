@@ -186,4 +186,8 @@
             {% capture jekyll_toc %}<{{ listModifier }}{{ rootAttributes }}>{{ nodes | shift | join: '>' }}>{% endcapture %}
         {% endif %}
     {% endif %}
-{% endcapture %}{% assign tocWorkspace = '' %}{{ deprecation_warnings }}{{ jekyll_toc -}}
+{% endcapture %}
+{% assign tocWorkspace = '' %}{{ deprecation_warnings }}
+{% if jekyll_toc != '' %}
+    {{ jekyll_toc -}}
+{% endif %}
