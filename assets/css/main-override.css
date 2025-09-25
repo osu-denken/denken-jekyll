@@ -17,9 +17,10 @@
   border-left: 1px solid #e0e0e0;
   padding: 1rem;
   overflow-y: auto;
-  height: 100vh;
+  height: calc(100vh - 56px - 64px);
   position: sticky;
-  top: 0;
+  top: 56px;
+  box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6 {
