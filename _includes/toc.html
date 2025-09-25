@@ -187,7 +187,4 @@
         {% endif %}
     {% endif %}
 {% endcapture %}
-{% assign tocWorkspace = '' %}{{ deprecation_warnings }}
-{% if jekyll_toc != '' %}
-    {{ jekyll_toc -}}
-{% endif %}
+{% assign tocWorkspace = '' %}{{ deprecation_warnings }}{% if jekyll_toc != '' %}{{ jekyll_toc | strip }}{% endif %}
