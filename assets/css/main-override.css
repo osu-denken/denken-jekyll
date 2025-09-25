@@ -17,7 +17,7 @@
   border-left: 1px solid #e0e0e0;
   padding: 1rem;
   overflow-y: auto;
-  height: calc(100vh - 160px - 50px);
+  height: auto;
   position: sticky;
   top: 50px;
   box-sizing: border-box;
@@ -25,6 +25,13 @@
 
 .rightbar:empty {
   display: none !important;
+}
+
+body.scrolled .rightbar {
+  height: calc(100vh - 50px);
+  position: fixed;
+  right: 0;
+  top: 50px;
 }
 
 h1, h2, h3, h4, h5, h6 {
