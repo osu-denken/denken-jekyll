@@ -17,9 +17,9 @@
   border-left: 1px solid #e0e0e0;
   padding: 1rem;
   overflow-y: auto;
-  height: calc(100vh - 56px - 64px);
+  height: calc(100vh - 160px - 50px);
   position: sticky;
-  top: 56px;
+  top: 50px;
   box-sizing: border-box;
 }
 
