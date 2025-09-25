@@ -82,3 +82,9 @@ li.carditem a:hover {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
+
+@media screen and (max-width: 767px) {
+  .rightbar {
+    display: none;
+  }
+}
