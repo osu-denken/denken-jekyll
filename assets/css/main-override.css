@@ -6,7 +6,7 @@
 
 .page-content {
   flex: 1 1 0%;
-  min-width: 0;
+  margin-right: 240px;
 }
 
 .rightbar {
@@ -91,6 +91,7 @@ li.carditem a:hover {
   text-overflow: ellipsis;
   height: 60px;
   display: -webkit-box;
+  line-clamp: 5;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
@@ -98,5 +99,9 @@ li.carditem a:hover {
 @media screen and (max-width: 767px) {
   .rightbar {
     display: none;
+  }
+
+  .page-content {
+    margin-right: 0;
   }
 }
