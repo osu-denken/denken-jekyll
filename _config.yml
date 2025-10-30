@@ -5,4 +5,12 @@ baseurl: "/blog"
 markdown: kramdown
 commonmark:
   options: ["UNSAFE", "SMART", "FOOTNOTES"]
-  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+  extensions: 
+    - strikethrough
+    - autolink
+    - table
+    - tagfilter
+kramdown:
+  input: GFM
+  autolink: true
+  tables: true
