@@ -116,7 +116,7 @@ li.carditem a:hover {
     display: none;
   }
 
-  .page-content {
+  .page-content:has(+ .rightbar) {
     margin-right: 0;
   }
 }
