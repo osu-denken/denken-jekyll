@@ -107,7 +107,8 @@ li.carditem a:hover {
 
 .breadcrumb ul li:not(:last-of-type)::after {
   content: ">";
-  margin: 0 .6em;
+  margin: 0 4px;
+  margin-top: 4px;
 }
 
 @media screen and (max-width: 767px) {
