@@ -10,40 +10,19 @@
     {% assign url_paths = page.url | split: '/' %}
     {% assign url = '/' %}
 
-    <info class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+    <div class="breadcrumb">
       <ul>
         {% for path in url_paths %}
         {% if path == '' %}
         <li>
-          <a href="/" title="Top">Top</a>
+          <a href="/blog/" title="Top">電研ブログ</a>
         </li>
         {% elsif url_paths.last == path %}
-        <li class="is-active">
-          <a href="" title="{{ path }}">{{ path | replace: '.html', '' | url_decode | capitalize }}</a>
-        </li>
-        {% elsif path contains 'categories' %}
-        <li class="">
-          <a href="/categories/"
-            title="{{ path | capitalize }}">{{ path | replace: '.html', '' | url_decode | capitalize }}</a>
-        </li>
-        {% elsif path contains 'tags' %}
-        <li class="">
-          <a href="/tags/" title="{{ path | capitalize }}">{{ path | replace: '.html', '' | url_decode | capitalize }}</a>
-        </li>
-        {% elsif page.type == 'month' or page.type == 'year' %}
-        <li class="">
-          <a href="/{{ path }}/"
-            title="{{ path | capitalize }}">{{ path | replace: '.html', '' | url_decode | capitalize }}</a>
-        </li>
-        {% else %}
-        <li class="">
-          <a href="/categories/{{ path }}/"
-            title="{{ path | capitalize }}">{{ path | replace: '.html', '' | url_decode | capitalize }}</a>
-        </li>
+        <li class="is-active">{{ path | replace: '.html', '' | url_decode | capitalize }}</li>
         {% endif %}
         {% endfor %}
       </ul>
-    </info>
+    </div>
 
     <div class="container">
       <main class="page-content" aria-label="Content">

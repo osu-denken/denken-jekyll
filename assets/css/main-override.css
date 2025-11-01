@@ -99,6 +99,17 @@ li.carditem a:hover {
   -webkit-box-orient: vertical;
 }
 
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.breadcrumb li:not(:last-of-type)::after {
+  content: ">";
+  margin: 0 .6em;
+}
+
 @media screen and (max-width: 767px) {
   .rightbar {
     display: none;
