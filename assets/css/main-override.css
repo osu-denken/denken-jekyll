@@ -99,13 +99,13 @@ li.carditem a:hover {
   -webkit-box-orient: vertical;
 }
 
-.breadcrumb {
+.breadcrumb ul {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
 }
 
-.breadcrumb li:not(:last-of-type)::after {
+.breadcrumb ul li:not(:last-of-type)::after {
   content: ">";
   margin: 0 .6em;
 }
