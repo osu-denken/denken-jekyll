@@ -100,11 +100,18 @@ li.carditem a:hover {
   -webkit-box-orient: vertical;
 }
 
+div.status-bar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
 ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin-top: 4px;
 }
 
 ul.breadcrumb li:not(:last-of-type)::after {
