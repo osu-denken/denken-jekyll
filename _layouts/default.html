@@ -10,8 +10,8 @@
     {% assign url_paths = page.url | split: '/' %}
     {% assign url = '/' %}
 
-    <div class="breadcrumb">
-      <ul>
+    <div class="status-bar">
+      <ul class="breadcrumb">
         {% for path in url_paths %}
         {% if path == '' %}
         <li>
@@ -22,7 +22,18 @@
         {% endif %}
         {% endfor %}
       </ul>
+      <span class="tags">
+      {%- if page.tags -%}
+        -
+        {% for tag in page.tags %}
+        <a href="{{ site.baseurl }}/tags.html#{{ tag | slugize }}">#{{ tag }}</a>
+        {% endfor %}
+      {%- endif -%}
+      </span>
     </div>
+
+    
+
 
     <div class="container">
       <main class="page-content" aria-label="Content">

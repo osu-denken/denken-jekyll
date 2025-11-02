@@ -100,14 +100,14 @@ li.carditem a:hover {
   -webkit-box-orient: vertical;
 }
 
-.breadcrumb ul {
+ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin-top: 4px;
 }
 
-.breadcrumb ul li:not(:last-of-type)::after {
+ul.breadcrumb li:not(:last-of-type)::after {
   content: ">";
   margin: 0 4px;
 }
