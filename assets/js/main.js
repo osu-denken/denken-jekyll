@@ -15,10 +15,15 @@ function applyAutolink() {
   const pageContent = document.querySelector('.page-content');
   if (!pageContent) return;
 
+  pageContent.querySelectorAll('a').forEach(a => a.dataset.skip = '1'); // aのネスト対策にリンク済みをマーク
+
   pageContent.innerHTML = pageContent.innerHTML.replace(urlPattern, function(url) {
+    if (url.includes('data-skip="1"')) return url; // リンク済みはスキップ
     let isInternal = internalLinkPattern.test(url);
     return `<a href="${url}"` + (isInternal ? `` : ` target="_blank"`) + ` rel="noopener noreferrer">${url}</a>`;
   });
+
+  pageContent.querySelectorAll('[data-skip]').forEach(el => el.removeAttribute('data-skip'));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
