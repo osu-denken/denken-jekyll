@@ -105,13 +105,14 @@ div.status-bar {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 4px;
+  margin-top: 60px;
 }
 
 ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  margin-left: 12px;
 }
 
 ul.breadcrumb li:not(:last-of-type)::after {

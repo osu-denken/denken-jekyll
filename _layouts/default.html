@@ -18,7 +18,7 @@
           <a href="/blog/" title="Top">電研ブログ</a>
         </li>
         {% elsif url_paths.last == path %}
-        <li class="is-active">{{ path | replace: '.html', '' | url_decode | capitalize }}</li>
+        <li class="is-active">{{ page.title }}</li>
         {% endif %}
         {% endfor %}
       </ul>
