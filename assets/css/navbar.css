@@ -17,6 +17,7 @@
 
 .nav ul li {
   margin-left: 20px;
+  height: 100%;
 }
 
 .nav ul li.right {
@@ -31,10 +32,12 @@
 .nav a {
   display: flex;
   align-items: center;
+  height: 100%;
+  padding: 0 10px;
   text-decoration: none;
   color: #fff;
-  padding: 10px;
   font-size: 20px;
+  box-sizing: border-box;
   transition-duration: 0.35s;
   -webkit-text-size-adjust: 100%; /* iOS Safari対策 */
 }
