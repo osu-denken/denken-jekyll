@@ -9,21 +9,27 @@ function applyScrolledClass() {
 
 // .page-content内のURLを検出してリンクを有効化
 function applyAutolink() {
-  const urlPattern = /(https?:\/\/[^\s<>"']+)/g;
-  const internalLinkPattern = new RegExp(`^https?://${window.location.host}`); // 内部リンク用パターン
-
+  const urlPtn = /(https?:\/\/[^\s<>"']+)/g;
+  const internalPtn = new RegExp(`^https?://${window.location.host}`);
   const pageContent = document.querySelector('.page-content');
   if (!pageContent) return;
 
-  pageContent.querySelectorAll('a').forEach(a => a.dataset.skip = '1'); // aのネスト対策にリンク済みをマーク
+  const tw = document.createTreeWalker(pageContent, NodeFilter.SHOW_TEXT);
 
-  pageContent.innerHTML = pageContent.innerHTML.replace(urlPattern, function(url) {
-    if (url.includes('data-skip="1"')) return url; // リンク済みはスキップ
-    let isInternal = internalLinkPattern.test(url);
-    return `<a href="${url}"` + (isInternal ? `` : ` target="_blank"`) + ` rel="noopener noreferrer">${url}</a>`;
-  });
+  let node;
+  while ((node = tw.nextNode())) {
+    const text = node.nodeValue;
+    if (!urlPtn.test(text)) continue;
 
-  pageContent.querySelectorAll('[data-skip]').forEach(el => el.removeAttribute('data-skip'));
+    const replaced = text.replace(urlPtn, function(url) {
+      return `<a href="${url}"` + (internalPtn.test(url) ? '' : ' target="_blank"') + ' rel="noopener noreferrer">' + url + '</a>';
+    });
+
+    const tmp = document.createElement('span');
+    tmp.innerHTML = replaced;
+    node.parentNode.replaceChild(tmp, node);
+    tmp.replaceWith(...tmp.childNodes);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
