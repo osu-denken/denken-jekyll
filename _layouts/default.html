@@ -22,14 +22,6 @@
         {% endif %}
         {% endfor %}
       </ul>
-      <span class="tags">
-      {%- if page.tags -%}
-        - タグ: 
-        {% for tag in page.tags %}
-        <a href="{{ site.baseurl }}/tags.html#{{ tag | slugize }}">#{{ tag }}</a>
-        {% endfor %}
-      {%- endif -%}
-      </span>
     </div>
 
     
@@ -39,6 +31,32 @@
       <main class="page-content" aria-label="Content">
         <div class="wrapper">
           <h1>{{ page.title }}</h1>
+          <div class="post-meta">
+          <span class="post-date">
+            CreatedAt: {{ page.date | date: "%Y-%m-%d" }}{%- if page.last_modified_at and page.last_modified_at != page.date -%}, UpdatedAt: {{ page.last_modified_at | date: "%Y-%m-%d" }}{%- endif -%}
+          </span>
+          {%- if page.author -%}
+          {%- assign author = site.data.authors[page.author] -%}
+          {%- if author.github -%}
+          by
+          <span class="author">
+          {% if author.github contains 'http' %}
+            <a href="{{ author.github }}">@{{ author.name }}</a>
+          {% else %}
+            @{{ author.github }}
+          {% endif %}
+          </span>
+          <br>
+          <span class="tags">
+          {%- if page.tags -%}
+            Tags: 
+            {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags.html#{{ tag | slugize }}">#{{ tag }}</a>
+            {% endfor %}
+          {%- endif -%}
+          </span>
+          </div>
+
           {{ content }}
         </div>
       </main>
