@@ -19,7 +19,7 @@ function applyAutolink() {
   let node;
   while ((node = tw.nextNode())) {
     const text = node.nodeValue;
-    if (!urlPtn.match(text)) continue;
+    if (!text.match(urlPtn)) continue;
 
     const replaced = text.replace(urlPtn, function(url) {
       return `<a href="${url}"` + (internalPtn.test(url) ? '' : ' target="_blank"') + ' rel="noopener noreferrer">' + url + '</a>';
