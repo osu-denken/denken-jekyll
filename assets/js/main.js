@@ -14,15 +14,20 @@ function applyAutolink() {
   const pageContent = document.querySelector('.page-content');
   if (!pageContent) return;
 
+  
   const tw = document.createTreeWalker(pageContent, NodeFilter.SHOW_TEXT);
-
+  const nodes = [];
   let node;
-  while ((node = tw.nextNode())) {
+  while ( node = tw.nextNode()) nodes.push(node);
+
+  for (const node of nodes) {
     const text = node.nodeValue;
     if (!text.match(urlPtn)) continue;
+    urlPtn.lastIndex = 0;
 
     const replaced = text.replace(urlPtn, function(url) {
-      return `<a href="${url}"` + (internalPtn.test(url) ? '' : ' target="_blank"') + ' rel="noopener noreferrer">' + url + '</a>';
+      return `<a href="${url}"` + (internalPtn.test(url) ? '' : ' target="_blank"')
+       + ' rel="noopener noreferrer">' + url + '</a>';
     });
 
     const tmp = document.createElement('span');
