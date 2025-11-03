@@ -16,8 +16,8 @@ function applyAutolink() {
   if (!pageContent) return;
 
   pageContent.innerHTML = pageContent.innerHTML.replace(urlPattern, function(url) {
-    const isInternal = internalLinkPattern.test(url);
-    return `<a href="${url}"` + isInternal ? `` : ` target="_blank"` + ` rel="noopener noreferrer">${url}</a>`;
+    let isInternal = internalLinkPattern.test(url);
+    return `<a href="${url}"` + (isInternal ? `` : ` target="_blank"`) + ` rel="noopener noreferrer">${url}</a>`;
   });
 }
 
