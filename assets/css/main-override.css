@@ -119,6 +119,12 @@ ul.breadcrumb li:not(:last-of-type)::after {
   margin: 0 4px;
 }
 
+div.post-meta {
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
 @media screen and (max-width: 767px) {
   .rightbar {
     display: none;
