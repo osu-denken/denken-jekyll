@@ -50,7 +50,7 @@ function applyUserNav() {
   const join = document.getElementById('nav-join');
 
   // ナビバーの書き換え
-  const loginLink = login.querySelector('a');
+  const loginLink = login.getElementsByTagName('a')[0];
   loginLink.href = '#logout';
   loginLink.addEventListener('click', function(e) {
     e.preventDefault();
@@ -60,7 +60,7 @@ function applyUserNav() {
   });
   loginLink.textContent = 'ログアウト';
 
-  const plusLink = join.querySelector('a');
+  const plusLink = join.getElementsByTagName('a')[0];
   plusLink.href = '#new-article';
   plusLink.textContent = '+';  
 }
