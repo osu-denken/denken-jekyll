@@ -37,13 +37,6 @@ function applyAutolink() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  applyScrolledClass();
-  window.addEventListener('resize', applyScrolledClass);
-
-  applyAutolink();
-});
-
 // ログインしているときの処理
 function applyUserNav() {
   const login = document.getElementById('nav-login');
@@ -65,8 +58,17 @@ function applyUserNav() {
   plusLink.textContent = '+';  
 }
 
-const token = localStorage.getItem("idToken");
-if (token) {
-  applyUserNav();
-}
 
+
+// 全体読み込み後に初期化する
+document.addEventListener('DOMContentLoaded', function() {
+  applyScrolledClass();
+  window.addEventListener('resize', applyScrolledClass);
+
+  applyAutolink();
+
+  const token = localStorage.getItem("idToken");
+  if (token) {
+    applyUserNav();
+  }
+});
