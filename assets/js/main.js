@@ -54,7 +54,7 @@ function applyUserNav() {
   loginLink.textContent = 'ログアウト';
 
   const newLink = join.getElementsByTagName('a')[0];
-  newLink.href = '/portal/blog/new';
+  newLink.href = '/portal/blog/?action=new';
   newLink.textContent = '新しく投稿';  
 }
 
