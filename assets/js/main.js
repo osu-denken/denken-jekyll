@@ -43,3 +43,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
   applyAutolink();
 });
+
+// ログインしているときの処理
+function applyUserNav() {
+  const login = document.getElementById('nav-login');
+  const join = document.getElementById('nav-join');
+
+  // ナビバーの書き換え
+  const loginLink = login.querySelector('a');
+  loginLink.href = '#logout';
+  loginLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    localStorage.removeItem("idToken");
+    localStorage.removeItem("displayName");
+    window.location.reload();
+  });
+  loginLink.textContent = 'ログアウト';
+
+  const plusLink = join.querySelector('a');
+  plusLink.href = '#new-article';
+  plusLink.textContent = '+';  
+}
+
+const token = localStorage.getItem("idToken");
+if (token) {
+  applyUserNav();
+}
+
