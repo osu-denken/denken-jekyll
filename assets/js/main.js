@@ -53,9 +53,9 @@ function applyUserNav() {
   });
   loginLink.textContent = 'ログアウト';
 
-  const plusLink = join.getElementsByTagName('a')[0];
-  plusLink.href = '#new-article';
-  plusLink.textContent = '+';  
+  const newLink = join.getElementsByTagName('a')[0];
+  newLink.href = '/portal/blog/new';
+  newLink.textContent = '新しく投稿';  
 }
 
 
