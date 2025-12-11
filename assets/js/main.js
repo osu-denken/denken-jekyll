@@ -53,9 +53,24 @@ function applyUserNav() {
   });
   loginLink.textContent = 'ログアウト';
 
-  const newLink = join.getElementsByTagName('a')[0];
-  newLink.href = '/portal/blog/?action=new';
-  newLink.textContent = '新しく投稿';  
+  if (!window.location.pathname.endsWith('/blog/') && !window.location.pathname.endsWith('/blog/index.html')) {
+    const editLink = join.getElementsByTagName('a')[0];
+    let pagename = window.location.pathname;
+
+    pagename = pagename.replace(/^\/blog\//, '');
+    pagename = pagename.replace(/\//g, '-');
+    pagename = pagename.replace(/\.html$/, '');
+
+    editLink.href = '/portal/blog/?action=edit&page=' + encodeURIComponent(pagename);    
+    editLink.textContent = '✎';
+    editLink.title = 'このページを編集';
+    return;
+  } else {
+    const newLink = join.getElementsByTagName('a')[0];
+    newLink.href = '/portal/blog/?action=new';
+    newLink.textContent = '＋';
+    newLink.title = '新しく投稿';
+  }
 }
 
 
