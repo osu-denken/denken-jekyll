@@ -75,7 +75,6 @@ li.carditem:hover {
   border-color: #0070f3;
 }
 
-/* タイトル */
 li.carditem a {
   display: block;
   height: 100%;
@@ -86,6 +85,7 @@ li.carditem a {
 
 li.carditem a:hover {
   color: #0070f3;
+  text-decoration: none;
 }
 
 /* タイトル */
