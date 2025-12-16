@@ -11,6 +11,8 @@ commonmark:
     - table
     - tagfilter
     - jekyll-paginate
+plugins:
+  - jekyll-paginate
 kramdown:
   input: GFM
   autolink: true
