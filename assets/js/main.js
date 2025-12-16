@@ -58,8 +58,13 @@ function applyUserNav() {
     let pagename = window.location.pathname;
 
     pagename = pagename.replace(/^\/blog\//, '');
-    pagename = pagename.replace(/\//g, '-');
-    pagename = pagename.replace(/\.html$/, '');
+
+    if (pagename.endsWith(".html")) {
+      pagename = pagename.replace(/\//g, '-');
+      pagename = pagename.replace(/\.html$/, '');
+    } else {
+      pagename = "_" + pagename;
+    }
 
     editLink.href = '/portal/blog/?action=edit&page=' + encodeURIComponent(pagename);    
     editLink.textContent = '✎';
