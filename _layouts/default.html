@@ -37,17 +37,10 @@
           {%- endif -%}
 
           {%- if page.author -%}
-          {%- assign author = site.data.authors[page.author] -%}
-          {%- if author.github -%}
           by
           <span class="author">
-          {% if author.github contains 'http' %}
-            <a href="{{ author.github }}">@{{ author.name }}</a>
-          {% else %}
-            @{{ author.github }}
-          {% endif %}
+            <a href="https://github.com/{{ page.author }}">@{{ page.author }}</a>
           </span>
-          {%- endif -%}
           {%- endif -%}
           <br>
           <span class="tags">
