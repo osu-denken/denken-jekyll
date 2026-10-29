@@ -1,0 +1,114 @@
+:root {
+  --bg: #fdfdfd;
+  --text: #111;
+  --text-muted: #666;
+  --text-subtle: #888;
+  --heading: #333;
+  --link: #2a7ae2;
+  --link-visited: #1756a9;
+  --border: #e8e8e8;
+  --card-bg: #fff;
+  --card-border: #eaeaea;
+  --card-accent: #0070f3;
+  --sidebar-bg: #f8f9fa;
+  --sidebar-border: #e0e0e0;
+  --code-bg: #eef;
+  --quote-text: #828282;
+  --table-th-bg: #f8f9fa;
+  --table-th-text: #111;
+  --table-row-alt-bg: #f8f9fa;
+}
+
+/* 公式サイト（styles/globals.css, Page.module.css, workcard.module.css）の配色に準拠 */
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --text: #fff;
+  --text-muted: #ccc;
+  --text-subtle: #ccc;
+  --heading: #f0ffff;
+  --link: #1e90ff;
+  --link-visited: #1e90ff;
+  --border: #555;
+  --card-bg: #ffffff10;
+  --card-border: #ffffff1f;
+  --card-accent: #4fafff;
+  --sidebar-bg: #252525;
+  --sidebar-border: #555;
+  --code-bg: #2d2d2d;
+  --quote-text: #ccc;
+  --table-th-bg: #303f30;
+  --table-th-text: #fff;
+  --table-row-alt-bg: #282828;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a,
+a:visited {
+  color: var(--link);
+}
+
+a:hover {
+  color: var(--text);
+}
+
+.site-header,
+.site-footer {
+  border-color: var(--border);
+}
+
+.site-title,
+.site-title:visited,
+.site-nav .page-link {
+  color: var(--heading);
+}
+
+.footer-col-wrapper,
+.post-meta,
+.page-content .post-list > li .post-meta {
+  color: var(--text-muted);
+}
+
+blockquote {
+  color: var(--quote-text);
+  border-left-color: var(--border);
+}
+
+pre,
+code {
+  background-color: var(--code-bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.highlight,
+.highlighter-rouge .highlight {
+  background-color: var(--code-bg);
+}
+
+table {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+table th,
+table td {
+  border-color: var(--border);
+}
+
+table th {
+  background-color: var(--table-th-bg);
+  color: var(--table-th-text);
+  border-color: var(--border);
+}
+
+table tr:nth-child(even) {
+  background-color: var(--table-row-alt-bg);
+}
+
+hr {
+  border-color: var(--border);
+}

@@ -1,0 +1,77 @@
+{%- if paginator.total_pages > 1 -%}
+{%- assign cur = paginator.page -%}
+{%- assign total = paginator.total_pages -%}
+
+{%- comment -%} 現在ページの前後2件を表示し、離れたページは省略記号でたたむ {%- endcomment -%}
+{%- assign win_start = cur | minus: 2 -%}
+{%- assign win_end = cur | plus: 2 -%}
+{%- if win_start < 1 -%}{%- assign win_start = 1 -%}{%- endif -%}
+{%- if win_end > total -%}{%- assign win_end = total -%}{%- endif -%}
+
+<nav class="pagination" aria-label="ページ送り">
+  {%- if paginator.previous_page -%}
+    <a class="pagination-btn" href="{{ '/' | relative_url }}" aria-label="最初のページ">
+      <iconify-icon icon="fa6-solid:angles-left" aria-hidden="true"></iconify-icon>
+    </a>
+    <a class="pagination-btn" href="{{ paginator.previous_page_path | relative_url }}" rel="prev" aria-label="前のページ">
+      <iconify-icon icon="fa6-solid:chevron-left" aria-hidden="true"></iconify-icon>
+      <!-- <span class="pagination-label">前へ</span> -->
+    </a>
+  {%- else -%}
+    <span class="pagination-btn is-disabled" aria-hidden="true">
+      <iconify-icon icon="fa6-solid:angles-left" aria-hidden="true"></iconify-icon>
+    </span>
+    <span class="pagination-btn is-disabled" aria-hidden="true">
+      <iconify-icon icon="fa6-solid:chevron-left" aria-hidden="true"></iconify-icon>
+      <!-- <span class="pagination-label">前へ</span> -->
+    </span>
+  {%- endif -%}
+
+  <span class="pagination-pages">
+    {%- if win_start > 1 -%}
+      <a class="pagination-num" href="{{ '/' | relative_url }}" aria-label="1ページ目">1</a>
+      {%- if win_start > 2 -%}
+        <span class="pagination-gap" aria-hidden="true">…</span>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- for n in (win_start..win_end) -%}
+      {%- if n == cur -%}
+        <span class="pagination-num is-current" aria-current="page" aria-label="{{ n }}ページ目">{{ n }}</span>
+      {%- elsif n == 1 -%}
+        <a class="pagination-num" href="{{ '/' | relative_url }}" aria-label="1ページ目">1</a>
+      {%- else -%}
+        <a class="pagination-num" href="{{ site.paginate_path | replace: ':num', n | relative_url }}" aria-label="{{ n }}ページ目">{{ n }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if win_end < total -%}
+      {%- assign before_last = total | minus: 1 -%}
+      {%- if win_end < before_last -%}
+        <span class="pagination-gap" aria-hidden="true">…</span>
+      {%- endif -%}
+      <a class="pagination-num" href="{{ site.paginate_path | replace: ':num', total | relative_url }}" aria-label="{{ total }}ページ目">{{ total }}</a>
+    {%- endif -%}
+  </span>
+
+  {%- if paginator.next_page -%}
+    <a class="pagination-btn" href="{{ paginator.next_page_path | relative_url }}" rel="next" aria-label="次のページ">
+      <!-- <span class="pagination-label">次へ</span> -->
+      <iconify-icon icon="fa6-solid:chevron-right" aria-hidden="true"></iconify-icon>
+    </a>
+    <a class="pagination-btn" href="{{ site.paginate_path | replace: ':num', total | relative_url }}" aria-label="最後のページ">
+      <iconify-icon icon="fa6-solid:angles-right" aria-hidden="true"></iconify-icon>
+    </a>
+  {%- else -%}
+    <span class="pagination-btn is-disabled" aria-hidden="true">
+      <!-- <span class="pagination-label">次へ</span> -->
+      <iconify-icon icon="fa6-solid:chevron-right" aria-hidden="true"></iconify-icon>
+    </span>
+    <span class="pagination-btn is-disabled" aria-hidden="true">
+      <iconify-icon icon="fa6-solid:angles-right" aria-hidden="true"></iconify-icon>
+    </span>
+  {%- endif -%}
+</nav>
+
+<p class="pagination-status">{{ total }} ページ中 {{ cur }} ページ目（全 {{ paginator.total_posts }} 件）</p>
+{%- endif -%}

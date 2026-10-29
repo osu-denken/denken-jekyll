@@ -1,12 +1,3 @@
-// サイズに基づいてスクロールの調整
-function applyScrolledClass() {
-  if (document.documentElement.scrollHeight > window.innerHeight) {
-    document.body.classList.add('scrolled');
-  } else {
-    document.body.classList.remove('scrolled');
-  }
-}
-
 // .page-content内のURLを検出してリンクを有効化
 function applyAutolink() {
   const urlPtn = /(https?:\/\/[^\s<>"']+)/g;
@@ -37,6 +28,51 @@ function applyAutolink() {
   }
 }
 
+// テーマ切り替え（初期値は head.html のインラインスクリプトで設定済み）
+function applyThemeToggle() {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  toggle.addEventListener('click', function() {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {}
+  });
+
+  // 明示的に選択していない場合のみOSの設定に追従する
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  media.addEventListener('change', function(e) {
+    let saved = null;
+    try {
+      saved = localStorage.getItem('theme');
+    } catch (err) {}
+    if (saved === 'light' || saved === 'dark') return;
+    document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+  });
+}
+
+// 編集画面のURL。非公開記事はブログとは別のエディタで扱う
+function editHref() {
+  const path = window.location.pathname;
+
+  if (path.startsWith('/blog/private')) {
+    const slug = new URLSearchParams(window.location.search).get('page');
+    return slug ? '/portal/private/?page=' + encodeURIComponent(slug) : null;
+  }
+
+  let pagename = path.replace(/^\/blog\//, '');
+
+  if (pagename.endsWith('.html')) {
+    pagename = pagename.replace(/\//g, '-').replace(/\.html$/, '');
+  } else {
+    pagename = '_' + pagename;
+  }
+
+  return '/portal/blog/?action=edit&page=' + encodeURIComponent(pagename);
+}
+
 // ログインしているときの処理
 function applyUserNav() {
   const login = document.getElementById('nav-login');
@@ -48,6 +84,7 @@ function applyUserNav() {
   loginLink.addEventListener('click', function(e) {
     e.preventDefault();
     localStorage.removeItem("idToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("displayName");
     window.location.reload();
   });
@@ -55,18 +92,15 @@ function applyUserNav() {
 
   if (!window.location.pathname.endsWith('/blog/') && !window.location.pathname.endsWith('/blog/index.html')) {
     const editLink = join.getElementsByTagName('a')[0];
-    let pagename = window.location.pathname;
+    const href = editHref();
 
-    pagename = pagename.replace(/^\/blog\//, '');
-
-    if (pagename.endsWith(".html")) {
-      pagename = pagename.replace(/\//g, '-');
-      pagename = pagename.replace(/\.html$/, '');
-    } else {
-      pagename = "_" + pagename;
+    // スラッグの無い非公開記事のページには編集するものがない
+    if (!href) {
+      join.remove();
+      return;
     }
 
-    editLink.href = '/portal/blog/?action=edit&page=' + encodeURIComponent(pagename);    
+    editLink.href = href;
     editLink.textContent = '✎';
     editLink.title = 'このページを編集';
     return;
@@ -82,10 +116,9 @@ function applyUserNav() {
 
 // 全体読み込み後に初期化する
 document.addEventListener('DOMContentLoaded', function() {
-  applyScrolledClass();
-  window.addEventListener('resize', applyScrolledClass);
-
   applyAutolink();
+
+  applyThemeToggle();
 
   const token = localStorage.getItem("idToken");
   if (token) {

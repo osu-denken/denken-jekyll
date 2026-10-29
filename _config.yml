@@ -1,7 +1,9 @@
 title: 電研ブログ
+description: 大阪産業大学 文化会 電子計算研究部の公式ブログ。活動報告や制作物、部員による発信をしています。
 author: 大阪産業大学 文化会 電子計算研究部
-theme: minima
+url: "https://osu-denken.github.io"
 baseurl: "/blog"
+theme: minima
 markdown: kramdown
 commonmark:
   options: ["UNSAFE", "SMART", "FOOTNOTES"]

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<ul class="cardlist">
+  {% for post in paginator.posts %}
+    <li class="carditem">
+      <a href="{{ post.url | relative_url }}">
+        <span class="card-title">{{ post.title }}</span>
+        <p class="card-excerpt">{{ post.content | strip_html | truncate: 50 }}</p>
+        <span class="card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}">前へ</a>
+  {% endif %}
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}">次へ</a>
+  {% endif %}
+</div>

@@ -1,53 +1,144 @@
+:root {
+  --nav-height: 45px;
+  --rightbar-width: 300px;
+}
+
 body, html {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+/* stretch にして、目次が短くてもサイドバーの背景を本文の下端まで伸ばす。
+   固定ナビの回避はここで行い、サイドバーがナビ直下から始まるようにする */
 .container {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
+  margin-top: var(--nav-height);
 }
 
+/* min-width:0 がないと、長いコードブロック等でフレックス項目が縮まず目次を押し出す */
 .page-content {
   flex: 1 1 0%;
-  margin-right: 240px;
+  min-width: 0;
 }
 
-.page-content:has(+ .rightbar:empty) {
-  margin-right: 0;
-}
-
+/* 背景を伸ばす「列」と、スクロール追従する「中身」を分ける。
+   .rightbar 自体を sticky にすると高さが中身ぶんに縮んでしまう */
 .rightbar {
-  width: 300px;
+  flex: 0 0 auto;
+  width: var(--rightbar-width);
   max-width: 30vw;
   margin-left: 2rem;
-  background: #f8f9fa;
-  border-left: 1px solid #e0e0e0;
+  background: var(--sidebar-bg);
+  border-left: 1px solid var(--sidebar-border);
   padding: 1rem;
-  overflow-y: auto;
-  height: auto;
-  position: sticky;
-  top: 50px;
   box-sizing: border-box;
+}
+
+.rightbar > ul {
+  position: sticky;
+  top: var(--nav-height);
+  max-height: calc(100vh - var(--nav-height) - 2rem);
+  overflow-y: auto;
+  margin: 0;
 }
 
 .rightbar:empty {
   display: none !important;
 }
 
-body.scrolled .rightbar {
-  height: calc(100vh - 50px);
-  position: fixed;
-  right: 0;
-  top: 50px;
-}
-
 h1, h2, h3, h4, h5, h6 {
-  color: #333;
+  color: var(--heading);
 }
 
-li {
+/* 空白を含まない長いURLは通常の規則では改行できず、横にはみ出す。
+   コードブロックは折り返すと読めないので、そちらは横スクロールで逃がす */
+.page-content li,
+.page-content p,
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6,
+.page-content td,
+.page-content th,
+.page-content a,
+.rightbar a {
   overflow-wrap: anywhere;
+}
+
+.page-content pre,
+.page-content .highlight {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* pre の外側でインラインコードが伸びるのを防ぐ */
+.page-content code {
+  overflow-wrap: anywhere;
+}
+
+.page-content pre code {
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+/* 幅の広い表は表ごと横スクロールさせる */
+.page-content table {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.page-content img,
+.page-content iframe,
+.page-content video {
+  max-width: 100%;
+}
+
+/* 検索バー */
+.search-box {
+  position: relative;
+  margin: 0 0 1.5rem;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.9rem 0.6rem 2.4rem;
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus {
+  border-color: var(--card-accent);
+}
+
+.search-input::placeholder {
+  color: var(--text-subtle);
+}
+
+.search-empty,
+.search-hint {
+  color: var(--text-muted);
+  text-align: center;
+  margin: 1.5rem 0;
 }
 
 ul.cardlist {
@@ -59,9 +150,13 @@ ul.cardlist {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+ul.cardlist[hidden] {
+  display: none;
+}
+
 .carditem {
-  background-color: #fff;
-  border: 1px solid #eaeaea;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 20px;
   transition: all 0.3s ease;
@@ -71,8 +166,8 @@ ul.cardlist {
 }
 
 li.carditem:hover {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: var(--card-accent);
+  border-color: var(--card-accent);
 }
 
 li.carditem a {
@@ -84,7 +179,7 @@ li.carditem a {
 }
 
 li.carditem a:hover {
-  color: #0070f3;
+  color: var(--card-accent);
   text-decoration: none;
 }
 
@@ -92,20 +187,26 @@ li.carditem a:hover {
 .card-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: var(--heading);
   margin-bottom: 10px;
+}
+
+/* 非公開記事であることを一目でわかるようにする */
+.card-lock {
+  margin-right: 0.4em;
+  vertical-align: -0.05em;
 }
 
 .card-date {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--text-subtle);
   margin-top: auto;
   text-align: right;
 }
 
 .card-excerpt {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-muted);
   margin: 10px 0;
   line-height: 1.6;
   text-overflow: ellipsis;
@@ -121,14 +222,16 @@ div.status-bar {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 54px;
+  margin-top: 9px;
 }
 
+/* .wrapper の中にあるので本文と左端が揃う。そこから少しだけ外へ出す */
 ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin-left: 12px;
+  margin-left: -12px;
+  padding-left: 0;
 }
 
 ul.breadcrumb li:not(:last-of-type)::after {
@@ -138,16 +241,137 @@ ul.breadcrumb li:not(:last-of-type)::after {
 
 div.post-meta {
   margin-bottom: 1rem;
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+.post-meta .author a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  vertical-align: middle;
+}
+
+.post-meta .author-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+/* ページネーション */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.pagination-btn,
+.pagination-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 34px;
+  border: none;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+/* 数字は正円。padding を持たせると桁数で楕円になるので固定寸法にする */
+.pagination-num {
+  width: 34px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.pagination-btn {
+  padding: 0 8px;
+  border-radius: 6px;
+}
+
+a.pagination-btn:hover,
+a.pagination-num:hover {
+  color: var(--card-accent);
+  text-decoration: none;
+}
+
+.pagination-num.is-current {
+  color: #fff;
+  background-color: var(--card-accent);
+  font-weight: bold;
+}
+
+.pagination-btn.is-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pagination-pages {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.pagination-gap {
+  color: var(--text-subtle);
+}
+
+.pagination-status {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* 狭い画面では「前へ」「次へ」の文字を落としてアイコンだけにする */
+@media screen and (max-width: 640px) {
+  .pagination-label {
+    display: none;
+  }
+
+  .pagination-btn,
+  .pagination-num {
+    height: 30px;
+  }
+
+  .pagination-num {
+    width: 30px;
+  }
+
+  .pagination-btn {
+    padding: 0 6px;
+  }
 }
 
 @media screen and (max-width: 767px) {
   .rightbar {
     display: none;
   }
+}
 
-  .page-content {
-    margin-right: 0;
-  }
+.footer-rss {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.footer-rss:hover {
+  color: var(--text);
+}
+
+.footer-rss iconify-icon {
+  vertical-align: middle;
 }

@@ -10,52 +10,63 @@
     {% assign url_paths = page.url | split: '/' %}
     {% assign url = '/' %}
 
-    <div class="status-bar">
-      <ul class="breadcrumb">
-        {% for path in url_paths %}
-        {% if path == '' %}
-        <li>
-          <a href="/blog/" title="Top">電研ブログ</a>
-        </li>
-        {% elsif url_paths.last == path %}
-        <li class="is-active">{{ page.title }}</li>
-        {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-
     <div class="container">
       <main class="page-content" aria-label="Content">
         <div class="wrapper">
-          <h1>{{ page.title }}</h1>
-          <div class="post-meta">
-          
-          {%- if page.date -%}
-          <span class="post-date">
-            CreatedAt: {{ page.date | date: "%Y-%m-%d" }}{%- if page.last_modified_at and page.last_modified_at != page.date -%}, UpdatedAt: {{ page.last_modified_at | date: "%Y-%m-%d" }}{%- endif -%}
-          </span>
-          {%- endif -%}
-
-          {%- if page.author -%}
-          <span class="author">
-            by <a href="https://github.com/{{ page.author }}">@{{ page.author }}</a>
-          </span>
-          {%- endif -%}
-          <br>
-          <span class="tags">
-          {%- if page.tags -%}
-            Tags: 
-            {% for tag in page.tags %}
-            <a href="{{ site.baseurl }}/tags.html#{{ tag | slugize }}">#{{ tag }}</a>
-            {% endfor %}
-          {%- endif -%}
-          </span>
+          <div class="status-bar">
+            <ul class="breadcrumb">
+              {% for path in url_paths %}
+              {% if path == '' %}
+              <li>
+                <a href="/blog/" title="Top">電研ブログ</a>
+              </li>
+              {% elsif url_paths.last == path %}
+              <li class="is-active">{{ page.title }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
           </div>
+
+          {%- unless page.hide.title -%}
+          <h1>{{ page.title }}</h1>
+          {%- endunless %}
+
+          {%- unless page.hide.meta -%}
+          <div class="post-meta">
+            
+            {%- if page.date -%}
+            <span class="post-date">
+              CreatedAt: {{ page.date | date: "%Y-%m-%d" }}{%- if page.last_modified_at and page.last_modified_at != page.date -%}, UpdatedAt: {{ page.last_modified_at | date: "%Y-%m-%d" }}{%- endif -%}
+            </span>
+            {%- endif -%}
+
+            {%- if page.author -%}
+            <span class="author">
+              by <a href="https://github.com/{{ page.author }}"><img class="author-avatar" src="https://github.com/{{ page.author }}.png?size=40" alt="@{{ page.author }}" loading="lazy" width="20" height="20">@{{ page.author }}</a>
+            </span>
+            {%- endif -%}
+
+            {%- if page.tags -%}
+            <br>
+            <span class="tags">
+              Tags: 
+              {% for tag in page.tags %}
+              <a href="{{ site.baseurl }}/tags.html#{{ tag | slugize }}">#{{ tag }}</a>
+              {% endfor %}
+            </span>
+            {%- endif -%}
+
+          </div>
+          {%- endunless -%}
 
           {{ content }}
         </div>
       </main>
+
+      {%- unless page.hide.rightbar -%}
       <aside class="rightbar">{%- include toc.html html=content sanitize=true -%}</aside>
+      {%- endunless -%}
+
     </div>
 
     {%- include footer.html -%}
